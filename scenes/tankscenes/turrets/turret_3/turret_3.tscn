@@ -1,0 +1,130 @@
+[gd_scene load_steps=18 format=3 uid="uid://dk20ovybilh17"]
+
+[ext_resource type="PackedScene" uid="uid://ce45vrt2p6frd" path="res://scenes/tankscenes/turrets/base_turret/base_turret.tscn" id="1_krqmf"]
+[ext_resource type="Texture2D" uid="uid://b2ed8hq42v4xa" path="res://assets/tank_assets/turrets/turret3/turret3.png" id="2_4cv4j"]
+[ext_resource type="Texture2D" uid="uid://bxr0hled275ve" path="res://assets/tank_assets/turrets/turret3/turret3_normal.png" id="3_53jei"]
+[ext_resource type="Texture2D" uid="uid://b6tr0ohumr638" path="res://assets/tank_assets/turrets/turret3/turret3_specular.png" id="4_xy5v0"]
+[ext_resource type="Script" path="res://scenes/tankscenes/turrets/turret_3/turret_3.gd" id="5_c1gej"]
+[ext_resource type="Texture2D" uid="uid://byprkr0usoxkx" path="res://assets/tank_assets/barrels/barrel3/barrel3.png" id="5_poold"]
+[ext_resource type="PackedScene" uid="uid://ctlfi0qurnw3t" path="res://scenes/tankscenes/bullet/bullet.tscn" id="6_01ap2"]
+[ext_resource type="SpriteFrames" uid="uid://dn5qwl06f53qn" path="res://scenes/tankscenes/turrets/base_turret/MuzzleFlashAnimation.tres" id="6_r8ir6"]
+[ext_resource type="Texture2D" uid="uid://2hurgopu5ah7" path="res://assets/tank_assets/barrels/barrel3/barrel3_normal.png" id="6_vm20w"]
+[ext_resource type="Texture2D" uid="uid://bx8gvbvmss1xh" path="res://assets/tank_assets/barrels/barrel3/barrel3_specular.png" id="7_15qxs"]
+[ext_resource type="Texture2D" uid="uid://d43v6ubpu22p" path="res://assets/light/light_gradient.png" id="8_vjrt4"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_w5oaq"]
+diffuse_texture = ExtResource("2_4cv4j")
+normal_texture = ExtResource("3_53jei")
+specular_texture = ExtResource("4_xy5v0")
+specular_shininess = 0.5
+
+[sub_resource type="Animation" id="Animation_3gtxl"]
+resource_name = "Recoil1"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Barrel3_1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.5),
+"transitions": PackedFloat32Array(1, 0.5, 2),
+"update": 0,
+"values": [Vector2(196, -26), Vector2(130, -26), Vector2(196, -26)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_on74j"]
+_data = {
+"Recoil1": SubResource("Animation_3gtxl")
+}
+
+[sub_resource type="Animation" id="Animation_k5q5y"]
+resource_name = "Recoil2"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Barrel3_2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.5),
+"transitions": PackedFloat32Array(1, 0.5, 2),
+"update": 0,
+"values": [Vector2(196, 26), Vector2(130, 26), Vector2(196, 26)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_txc42"]
+_data = {
+"Recoil2": SubResource("Animation_k5q5y")
+}
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_0gp23"]
+diffuse_texture = ExtResource("5_poold")
+normal_texture = ExtResource("6_vm20w")
+specular_texture = ExtResource("7_15qxs")
+specular_shininess = 0.5
+
+[node name="Turret_3" instance=ExtResource("1_krqmf")]
+texture = SubResource("CanvasTexture_w5oaq")
+script = ExtResource("5_c1gej")
+fire_rate = 1.0
+bullet_scene = ExtResource("6_01ap2")
+
+[node name="RecoilAnimationPlayer1" type="AnimationPlayer" parent="." index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_on74j")
+}
+
+[node name="RecoilAnimationPlayer2" type="AnimationPlayer" parent="." index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_txc42")
+}
+
+[node name="MuzzleFlashAnimatedSprite1" type="AnimatedSprite2D" parent="." index="2"]
+position = Vector2(328, -26)
+sprite_frames = ExtResource("6_r8ir6")
+animation = &"MuzzleFlash"
+
+[node name="MuzzleFlashAnimatedSprite2" type="AnimatedSprite2D" parent="." index="3"]
+position = Vector2(328, 26)
+sprite_frames = ExtResource("6_r8ir6")
+animation = &"MuzzleFlash"
+
+[node name="PointLight2D" type="PointLight2D" parent="." index="4"]
+position = Vector2(292, -26)
+enabled = false
+energy = 2.0
+texture = ExtResource("8_vjrt4")
+height = 40.0
+
+[node name="PointLight2D2" type="PointLight2D" parent="." index="5"]
+position = Vector2(292, 26)
+enabled = false
+energy = 2.0
+texture = ExtResource("8_vjrt4")
+height = 40.0
+
+[node name="Barrel3_1" type="Sprite2D" parent="." index="6"]
+show_behind_parent = true
+position = Vector2(196, -26)
+texture = SubResource("CanvasTexture_0gp23")
+
+[node name="Marker2D" type="Marker2D" parent="Barrel3_1" index="0"]
+position = Vector2(96, 0)
+
+[node name="Barrel3_2" type="Sprite2D" parent="." index="7"]
+show_behind_parent = true
+position = Vector2(196, 26)
+texture = SubResource("CanvasTexture_0gp23")
+
+[node name="Marker2D" type="Marker2D" parent="Barrel3_2" index="0"]
+position = Vector2(96, 0)
+
+[connection signal="animation_finished" from="RecoilAnimationPlayer1" to="." method="_on_recoil_animation_player_1_animation_finished"]
+[connection signal="animation_finished" from="RecoilAnimationPlayer2" to="." method="_on_recoil_animation_player_2_animation_finished"]
+[connection signal="animation_finished" from="MuzzleFlashAnimatedSprite1" to="." method="_on_muzzle_flash_animated_sprite_animation_finished"]
+[connection signal="animation_finished" from="MuzzleFlashAnimatedSprite2" to="." method="_on_muzzle_flash_animated_sprite_2_animation_finished"]

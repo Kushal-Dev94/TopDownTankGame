@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ce45vrt2p6frd"]
+
+[ext_resource type="Script" path="res://scenes/tankscenes/turrets/base_turret/base_turret.gd" id="1_34p60"]
+
+[node name="BaseTurret" type="Sprite2D"]
+script = ExtResource("1_34p60")

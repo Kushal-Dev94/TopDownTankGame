@@ -1,0 +1,107 @@
+[gd_scene load_steps=17 format=3 uid="uid://bdxvf5401n8fi"]
+
+[ext_resource type="Texture2D" uid="uid://cb1q6to5oi6qi" path="res://assets/tank_assets/turrets/turret1/turret1.png" id="1_dfryh"]
+[ext_resource type="PackedScene" uid="uid://ce45vrt2p6frd" path="res://scenes/tankscenes/turrets/base_turret/base_turret.tscn" id="1_gxwci"]
+[ext_resource type="Texture2D" uid="uid://usews1mwbplp" path="res://assets/tank_assets/turrets/turret1/turret1_normal.png" id="2_lfqp6"]
+[ext_resource type="Texture2D" uid="uid://cpox62pnapefw" path="res://assets/tank_assets/turrets/turret1/turret1_specular.png" id="3_6vdaf"]
+[ext_resource type="Script" path="res://scenes/tankscenes/turrets/turret_1/turret_1.gd" id="4_om845"]
+[ext_resource type="PackedScene" uid="uid://ctlfi0qurnw3t" path="res://scenes/tankscenes/bullet/bullet.tscn" id="5_dhivd"]
+[ext_resource type="SpriteFrames" uid="uid://dn5qwl06f53qn" path="res://scenes/tankscenes/turrets/base_turret/MuzzleFlashAnimation.tres" id="7_6dyun"]
+[ext_resource type="Texture2D" uid="uid://dvunptlviw5hs" path="res://assets/tank_assets/barrels/barrel1/barrel1.png" id="9_sd4vq"]
+[ext_resource type="Texture2D" uid="uid://drwb8qhm7vswd" path="res://assets/tank_assets/barrels/barrel1/barrel1_normal.png" id="10_reer1"]
+[ext_resource type="Texture2D" uid="uid://bhsjpklogha6r" path="res://assets/tank_assets/barrels/barrel1/barrel1_specular.png" id="11_am35k"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_h6ll1"]
+diffuse_texture = ExtResource("1_dfryh")
+normal_texture = ExtResource("2_lfqp6")
+specular_texture = ExtResource("3_6vdaf")
+specular_shininess = 0.5
+
+[sub_resource type="Animation" id="Animation_18g2b"]
+resource_name = "Recoil"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Barrel_1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.5),
+"transitions": PackedFloat32Array(1, 0.5, 0.5),
+"update": 0,
+"values": [Vector2(173, 0), Vector2(100, 0), Vector2(173, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PointLight2D:energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 0.5),
+"update": 0,
+"values": [2.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_86ncq"]
+_data = {
+"Recoil": SubResource("Animation_18g2b")
+}
+
+[sub_resource type="Gradient" id="Gradient_c3s5w"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gup7f"]
+gradient = SubResource("Gradient_c3s5w")
+width = 1024
+height = 1024
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_2jcxm"]
+diffuse_texture = ExtResource("9_sd4vq")
+normal_texture = ExtResource("10_reer1")
+specular_texture = ExtResource("11_am35k")
+specular_shininess = 0.5
+
+[node name="Turret_1" instance=ExtResource("1_gxwci")]
+texture = SubResource("CanvasTexture_h6ll1")
+script = ExtResource("4_om845")
+bullet_scene = ExtResource("5_dhivd")
+
+[node name="RecoilAnimationPlayer" type="AnimationPlayer" parent="." index="0"]
+speed_scale = 5.0
+libraries = {
+"": SubResource("AnimationLibrary_86ncq")
+}
+
+[node name="MuzzleFlashAnimatedSprite" type="AnimatedSprite2D" parent="." index="1"]
+position = Vector2(304, 0)
+sprite_frames = ExtResource("7_6dyun")
+animation = &"MuzzleFlash"
+speed_scale = 5.0
+
+[node name="PointLight2D" type="PointLight2D" parent="." index="2"]
+position = Vector2(271.679, 0)
+enabled = false
+color = Color(0.921569, 0.901961, 0.54902, 1)
+energy = 2.0
+range_z_max = 1
+texture = SubResource("GradientTexture2D_gup7f")
+texture_scale = 3.0
+height = 50.0
+
+[node name="Barrel_1" type="Sprite2D" parent="." index="3"]
+show_behind_parent = true
+position = Vector2(173, 0)
+scale = Vector2(1, 0.8)
+texture = SubResource("CanvasTexture_2jcxm")
+
+[node name="Marker2D" type="Marker2D" parent="Barrel_1" index="0"]
+
+[connection signal="animation_finished" from="RecoilAnimationPlayer" to="." method="_on_recoil_animation_player_animation_finished"]
+[connection signal="animation_finished" from="MuzzleFlashAnimatedSprite" to="." method="_on_muzzle_flash_animated_sprite_animation_finished"]

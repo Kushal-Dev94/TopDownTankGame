@@ -1,0 +1,32 @@
+[gd_resource type="SpriteFrames" load_steps=5 format=3 uid="uid://dn5qwl06f53qn"]
+
+[ext_resource type="Texture2D" uid="uid://bwi7qy6ck5p1t" path="res://assets/Effects/MuzzleFlash/Sprite_Fire_Shots_Shot_A_000.png" id="1_tqsnr"]
+[ext_resource type="Texture2D" uid="uid://c31m722t22b2x" path="res://assets/Effects/MuzzleFlash/Sprite_Fire_Shots_Shot_A_001.png" id="2_ouamt"]
+[ext_resource type="Texture2D" uid="uid://bldooet1it38x" path="res://assets/Effects/MuzzleFlash/Sprite_Fire_Shots_Shot_A_002.png" id="3_6y0eu"]
+[ext_resource type="Texture2D" uid="uid://c0kgvmricx4k" path="res://assets/Effects/MuzzleFlash/Sprite_Fire_Shots_Shot_A_003.png" id="4_jrtpf"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_tqsnr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ouamt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_6y0eu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_jrtpf")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"MuzzleFlash",
+"speed": 20.0
+}]

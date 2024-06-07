@@ -1,0 +1,42 @@
+[gd_scene load_steps=9 format=3 uid="uid://b0usiqhqv2grw"]
+
+[ext_resource type="PackedScene" uid="uid://bu8fw40s4buku" path="res://scenes/tankscenes/tankbases/base_tankbase/basetank.tscn" id="1_3xeqh"]
+[ext_resource type="Texture2D" uid="uid://cj34g1whe5i8s" path="res://assets/tank_assets/tankbases/tankbase3/tankbase3.png" id="2_o8q78"]
+[ext_resource type="Texture2D" uid="uid://dvb78hwt5sdil" path="res://assets/tank_assets/tankbases/tankbase3/tankbase3_normal.png" id="3_fklgp"]
+[ext_resource type="Texture2D" uid="uid://cjmydqmgqc2y0" path="res://assets/tank_assets/tankbases/tankbase3/tankbase3_specular.png" id="4_7yfsj"]
+[ext_resource type="PackedScene" uid="uid://c50g6ksrjuq5g" path="res://scenes/tankscenes/track/track.tscn" id="5_ut0g4"]
+[ext_resource type="PackedScene" uid="uid://dk20ovybilh17" path="res://scenes/tankscenes/turrets/turret_3/turret_3.tscn" id="6_beqvt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bvy0y"]
+size = Vector2(388, 344)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_msmer"]
+diffuse_texture = ExtResource("2_o8q78")
+normal_texture = ExtResource("3_fklgp")
+specular_texture = ExtResource("4_7yfsj")
+specular_shininess = 0.5
+
+[node name="TankBase_3" instance=ExtResource("1_3xeqh")]
+torque = 8000.0
+current_turret_path = NodePath("Turret_3")
+trackleft_path = NodePath("TrackLeft")
+trackright_path = NodePath("TrackRight")
+
+[node name="BaseTankShape" parent="." index="0"]
+shape = SubResource("RectangleShape2D_bvy0y")
+
+[node name="BaseTankSprite" parent="." index="1"]
+texture = SubResource("CanvasTexture_msmer")
+
+[node name="TrackLeft" parent="." index="2" instance=ExtResource("5_ut0g4")]
+visible = false
+position = Vector2(123, -106)
+scale = Vector2(0.473, 1.832)
+
+[node name="TrackRight" parent="." index="3" instance=ExtResource("5_ut0g4")]
+visible = false
+position = Vector2(0, 107)
+scale = Vector2(1.4, 1.8)
+
+[node name="Turret_3" parent="." index="4" instance=ExtResource("6_beqvt")]
+position = Vector2(17, -1)

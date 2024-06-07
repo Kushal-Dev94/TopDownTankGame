@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://c228ss7gx11sy"]
+
+[ext_resource type="PackedScene" uid="uid://b0usiqhqv2grw" path="res://scenes/tankscenes/tankbases/tankbase_3/tank_base_3.tscn" id="1_u8ft8"]
+[ext_resource type="Script" path="res://scenes/tankscenes/tankbases/player_tankbases/player_tankbase.gd" id="2_4mv3v"]
+[ext_resource type="Script" path="res://scenes/tankscenes/tankbases/player_tankbases/player_camera.gd" id="3_4fjt1"]
+
+[node name="TankBase_3" instance=ExtResource("1_u8ft8")]
+script = ExtResource("2_4mv3v")
+
+[node name="PlayerCamera" type="Camera2D" parent="." index="5"]
+script = ExtResource("3_4fjt1")
